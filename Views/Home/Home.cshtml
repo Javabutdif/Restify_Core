@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Restify.Models.Apartment>
+
+
+<div class="container">
+    <div class="row text-center">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card" style="max-height:25rem;max-width:17rem">
+                    <h5 class="card-header text-white" style="background-color:#56327E"> @item.apartment_name</h5>
+                    <div class="card-body">
+                        <img class="card-img" style="width: 100%; height: 10rem; object-fit: cover;" src="@item.apartment_image" />
+                        <div class="mt-2">
+                        <p class="text-start"><strong>Details: </strong> @item.apartment_details</p>
+                        <p class="text-start"><strong>Location: </strong> @item.apartment_location</p>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex flex-row">
+                        <button type="button" data-apartment-image="@item.apartment_image"  class="btn btn-outline-primary form-control apartment-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Apartment Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img class="card-img" id="apartment_image" style="width: 100%; height: 10rem; object-fit: cover;" src="" />
+                <div class="mt-2">
+                    <p class="text-start"><strong>Details: </strong> <span id="apartment_details"></span></p>
+                    <p class="text-start"><strong>Location: </strong> <span id="apartment_location"></span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var apartmentImage = button.data('apartment-image'); // Extract info from data-* attributes
+        var modal = $(this);
+        modal.find('#apartment_image').attr('src', apartmentImage);
+        // You need to replace these placeholder texts with actual data from your model
+        modal.find('#apartment_details').text('Apartment details');
+        modal.find('#apartment_location').text('Apartment location');
+    });
+</script>
+
+
+
